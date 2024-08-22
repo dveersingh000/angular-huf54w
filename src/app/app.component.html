@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Seat Reservation System</h2>
+
+  <!-- Input Form -->
+  <div class="input-container">
+    <label for="numSeats">Number of Seats:</label>
+    <input id="numSeats" type="number" [(ngModel)]="numSeats" min="1" max="7" placeholder="1-7" />
+    <button (click)="reserveSeats()">Reserve Seats</button>
+  </div>
+
+  <!-- Seat Map -->
+  <div class="seat-map">
+    <div *ngFor="let row of seatRows" class="row">
+      <div *ngFor="let seat of row" 
+           [ngClass]="{'seat': true, 'available': seat.status === 'available', 'booked': seat.status === 'booked'}" 
+           (click)="bookSeat(seat)"
+           [title]="seat.status === 'available' ? 'Click to Book' : 'Already Booked'">
+        {{seat.number}}
+      </div>
+    </div>
+  </div>
+  
+  <!-- Booking Confirmation -->
+  <div *ngIf="bookedSeats.length > 0" class="booking-confirmation">
+    <h3>Booked Seats:</h3>
+    <p>{{ bookedSeats.join(', ') }}</p>
+  </div>
+</div>
